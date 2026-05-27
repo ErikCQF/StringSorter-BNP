@@ -30,8 +30,6 @@ namespace BusinessLibrary
 
             var toSort = new SortItem[vals.Length];
 
-
-            //looping each array item
             //looping each array item
             for (int i = 0; i < vals.Length; i++)
             {
@@ -60,7 +58,6 @@ namespace BusinessLibrary
                     //clean the chapter 
                     chapters = "";
 
-
                     // since got here, have already extracted the chapter numbers
                     // let skips all till end of str
                     while (vals[i][j] != '|' && vals[i][j] != '>' && vals[i][j] != '»' && j < vals[i].Length - 1)
@@ -73,16 +70,13 @@ namespace BusinessLibrary
                     {
                         j++;
                     }
-                    //getting here
 
+                    //add it to array to sort
                     if (j == vals[i].Length - 1)
                     {
                         toSort[i] = sortItem; //next loops creates a new sortItem
                     }
-
-
                 }
-
             }
 
             //since I have my array strucure, just implement the comparer
@@ -103,8 +97,6 @@ namespace BusinessLibrary
 
                 return pa.Length.CompareTo(pb.Length);
             });
-
-
 
             return toSort.Select(a=>a.OriginalValue).ToArray();
         }
