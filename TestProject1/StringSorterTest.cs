@@ -2,12 +2,12 @@ using BusinessLibrary;
 
 namespace TestProject1
 {
-    public class UnitTest1
+    public class StringSorterTest
     {
         [Fact]
         public void Test1()
         {
-            //Arrage
+            //Arrange
             StringSorter src = new StringSorter();
             var test = new string[6];
             test[0] = "4 Exotic options | 4.6 Barrier options | Quanto options";
@@ -34,7 +34,7 @@ namespace TestProject1
 
             //Assert
 
-            for(int i=0;i<=expected.Length;i++)
+            for(int i=0;i<=expected.Length-1;i++)
             {
                 Assert.Equal(expected[i], result[i]);
             }

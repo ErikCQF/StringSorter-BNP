@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Security;
 using System.Text;
@@ -18,7 +19,7 @@ namespace BusinessLibrary
     {
         public class SortItem
         {
-            public string Chapters { get; set; } = string.Empty;
+            public List<string> Chapters { get; set; } = [];
             public string OriginalValue { get; set; } = string.Empty;
         }
 
@@ -28,8 +29,9 @@ namespace BusinessLibrary
             if (vals == null || vals.Length == 0) return Array.Empty<string>();
 
             var toSort = new SortItem[vals.Length];
-            
 
+
+            //looping each array item
             //looping each array item
             for (int i = 0; i < vals.Length; i++)
             {
@@ -52,6 +54,12 @@ namespace BusinessLibrary
                         j++;
                     }
 
+                    //adding the chapter
+                    sortItem.Chapters.Add(string.IsNullOrEmpty(chapters) ? int.MaxValue.ToString() : chapters);
+
+                    //clean the chapter 
+                    chapters = "";
+
 
                     // since got here, have already extracted the chapter numbers
                     // let skips all till end of str
@@ -69,9 +77,9 @@ namespace BusinessLibrary
 
                     if (j == vals[i].Length - 1)
                     {
-                        sortItem.Chapters =string.IsNullOrEmpty(chapters)?int.MaxValue.ToString():chapters ;
                         toSort[i] = sortItem; //next loops creates a new sortItem
                     }
+
 
                 }
 
@@ -80,8 +88,8 @@ namespace BusinessLibrary
             //since I have my array strucure, just implement the comparer
             Array.Sort(toSort, (a, b) =>
             {
-                var pa = a.Chapters.Split('.').Select(int.Parse).ToArray();
-                var pb = b.Chapters.Split('.').Select(int.Parse).ToArray();
+                var pa = string.Join(".", a.Chapters).Split('.').Select(int.Parse).ToArray();
+                var pb = string.Join(".", b.Chapters).Split('.').Select(int.Parse).ToArray();
 
                 int len = Math.Min(pa.Length, pb.Length);
 
